@@ -2,13 +2,33 @@ const express = require('express')
 const app = express()
 
 app.all('*', (req, res) => {
-  let newUrl = new URL('https://www.digikala.com/');
-  res.redirect(newUrl.toString());
+  let url = new URL(req.originalUrl, `https://${req.hostname}`);
+  let realhostname = url.pathname.split('/')[2];
+  let realpathname = url.pathname.split('/')[1];
+  url.hostname = realhostname;
+  url.pathname = '/' + realpathname;
+  url.protocol = "https";
+  let newUrl = url.toString();
+  res.redirect(newUrl);
 })
 
 app.listen(process.env.PORT || 3000, () => {
   console.log('Server started on port 3000')
 })
+
+
+
+// const express = require('express')
+// const app = express()
+
+// app.all('*', (req, res) => {
+//   let newUrl = new URL('https://www.digikala.com/');
+//   res.redirect(newUrl.toString());
+// })
+
+// app.listen(process.env.PORT || 3000, () => {
+//   console.log('Server started on port 3000')
+// })
 
 
 // const express = require('express')
