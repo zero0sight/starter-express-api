@@ -3,6 +3,6 @@ const app = express()
 app.all('/', (req, res) => {
     console.log("Just got a request!")
     res.send(req)
-    res.send("wtf")
+//     res.send("wtf")
 })
 app.listen(process.env.PORT || 3000)
