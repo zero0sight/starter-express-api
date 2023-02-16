@@ -2,16 +2,9 @@ const express = require('express')
 const app = express()
 
 app.all('/', (req, res) => {
-//   let url = new URL(req.originalUrl, `https://${req.hostname}`);
-//   let realhostname = url.pathname.split('/')[2];
-//   let realpathname = url.pathname.split('/')[1];
-//   url.hostname = realhostname;
-//   url.pathname = '/' + realpathname;
-//   url.protocol = "https";
   let newUrl = new URL(req.url);
   newUrl.hostname = "digikala.com";
-
-  res.redirect(newUrl);
+  res.fetch(newUrl);
 })
 
 app.listen(process.env.PORT || 3000, () => {
