@@ -1,27 +1,39 @@
-const express = require('express');
-const fetch = require('node-fetch');
-const app = express();
 
-app.all('*', async (req, res) => {
-let url = new URL(req.originalUrl, https://${req.hostname});
-
-  let realhostname = url.pathname.split('/')[2];
-  let realpathname = url.pathname.split('/')[1];
-  url.hostname = realhostname;
-  url.pathname = '/' + realpathname;
-  url.protocol = "https";
-  try {
-    let response = await fetch(url);
-    res.send(await response.text());
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
+addEventListener(
+  "fetch", event => {
+    let url = new URL(event.request.url.replace('http://', 'https://'));
+    let realhostname = url.pathname.split('/')[2];
+    let realpathname = url.pathname.split('/')[1];
+    url.hostname = realhostname;
+    url.pathname = '/' + realpathname;
+    url.protocol = "https:";
+    let request = new Request(url, event.request);
+    event.respondWith(
+      fetch(request)
+    );
   }
-});
+);
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Server started on port 3000');
-});
+// app.all('*', async (req, res) => {
+// let url = new URL(req.originalUrl, https://${req.hostname});
+
+//   let realhostname = url.pathname.split('/')[2];
+//   let realpathname = url.pathname.split('/')[1];
+//   url.hostname = realhostname;
+//   url.pathname = '/' + realpathname;
+//   url.protocol = "https";
+//   try {
+//     let response = await fetch(url);
+//     res.send(await response.text());
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+// app.listen(process.env.PORT || 3000, () => {
+//   console.log('Server started on port 3000');
+// });
 
 
 
