@@ -1,10 +1,9 @@
 const express = require('express')
 const app = express()
 
-app.all('/', (req, res) => {
-  let newUrl = new URL(req.url);
-  newUrl.hostname = "digikala.com";
-  res.fetch(newUrl);
+app.all('*', (req, res) => {
+  let newUrl = new URL('https://www.digikala.com/');
+  res.redirect(newUrl.toString());
 })
 
 app.listen(process.env.PORT || 3000, () => {
