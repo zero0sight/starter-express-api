@@ -8,7 +8,7 @@ app.all('/', (req, res) => {
 //   url.hostname = realhostname;
 //   url.pathname = '/' + realpathname;
 //   url.protocol = "https";
-  let newUrl = "digikala.com";
+  let newUrl = new URL("digikala.com");
 
   res.redirect(newUrl);
 })
