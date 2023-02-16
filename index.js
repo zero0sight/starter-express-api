@@ -3,7 +3,8 @@ const fetch = require('node-fetch');
 const app = express();
 
 app.all('*', async (req, res) => {
-  let url = new URL(req.originalUrl, https://${req.hostname});
+let url = new URL(req.originalUrl, https://${req.hostname});
+
   let realhostname = url.pathname.split('/')[2];
   let realpathname = url.pathname.split('/')[1];
   url.hostname = realhostname;
